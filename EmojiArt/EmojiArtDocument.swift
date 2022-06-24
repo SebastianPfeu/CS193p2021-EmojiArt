@@ -7,8 +7,7 @@
 
 import SwiftUI
 
-class EmojiArtDocument: ObservableObject
-{
+class EmojiArtDocument: ObservableObject {
     @Published private(set) var emojiArt: EmojiArtModel {
         didSet {
             if emojiArt.background != oldValue.background {
@@ -82,4 +81,14 @@ class EmojiArtDocument: ObservableObject
             emojiArt.emojis[index].size = Int((CGFloat(emojiArt.emojis[index].size) * scale).rounded(.toNearestOrAwayFromZero))
         }
     }
+    
+    func removeEmoji(_ emoji: EmojiArtModel.Emoji) {
+        if let index = emojiArt.emojis.firstIndex(of: emoji) {
+            emojiArt.emojis.remove(at: index)
+        }
+    }
+}
+
+extension EmojiArtModel.Emoji {
+    var fontSize: CGFloat { CGFloat(self.size) }
 }
